@@ -115,6 +115,7 @@ body {
     overflow: hidden;
     cursor: pointer;
     transition: 0.2s ease;
+    position: relative;
 }
 
 .tile:hover {
@@ -172,22 +173,10 @@ const page = document.getElementById("page");
 const fileInput = document.getElementById("fileInput");
 
 /* MOVIE GENRES */
-const movieGenres = [
-    "Action",
-    "Comedy",
-    "Romance",
-    "My Favourites"
-];
+const movieGenres = ["Action","Comedy","Romance","My Favourites"];
 
 /* TV SERIES GENRES */
-const seriesGenres = [
-    "Drama",
-    "Sitcom",
-    "Thriller",
-    "Sci-Fi",
-    "cartoon",
-    "My Series Favourites"
-];
+const seriesGenres = ["Drama","Sitcom","Thriller","Sci-Fi","cartoon","My Series Favourites"];
 
 let currentGenre = null;
 let currentFolder = null;
@@ -203,12 +192,10 @@ function showHome() {
 /* MOVIES */
 function openMovies() {
     currentFolder = "movies";
-
     page.innerHTML = `
         <div class="back" onclick="showHome()">← Back</div>
         <h2>Movies</h2>
     `;
-
     movieGenres.forEach(g => {
         const div = document.createElement("div");
         div.className = "genre";
@@ -221,61 +208,81 @@ function openMovies() {
 /* SERIES */
 function openSeries() {
     currentFolder = "series";
-
     page.innerHTML = `
         <div class="back" onclick="showHome()">← Back</div>
         <h2>TV Series</h2>
     `;
-
     seriesGenres.forEach(g => {
         const div = document.createElement("div");
         div.className = "genre";
         div.innerText = g;
-
-        if (g === "Sitcom") {
-            div.onclick = () => openSitcomFolder();
-        } else {
-            div.onclick = () => openGenre(g);
-        }
-
+        if (g === "Sitcom") div.onclick = () => openSitcomFolder();
+        else div.onclick = () => openGenre(g);
         page.appendChild(div);
     });
 }
 
 /* ⭐ UPDATED SITCOM ARRAY ⭐ */
 const sitcomShows = [
-    { id: "friends", name: "Friends", poster: "images/FRIENDS_POSTER.jpg" },
-    { id: "simpsons", name: "The Simpsons", poster: "images/THE_SIMPSONS_POSTER.jpg" },
-    { id: "samcat", name: "Sam & Cat", poster: "images/SAM_AND_CAT_POSTER.jpg" },
-    { id: "twobrokegirls", name: "2 Broke Girls", poster: "images/TWO_BROKE_GIRLS_POSTER.jpg" },
-    { id: "georgiemandy", name: "Georgie & Mandy", poster: "images/GEORGIE_AND_MANDY_POSTER.jpg" },
-    { id: "suitelifeondeck", name: "The Suite Life on Deck", poster: "images/SUITE_LIFE_ON_DECK_POSTER.jpg" },
-    { id: "drakejosh", name: "Drake & Josh", poster: "images/DRAKE_AND_JOSH_POSTER.jpg" },
-    { id: "shakeitup", name: "Shake It Up", poster: "images/SHAKE_IT_UP_POSTER.jpg" },
-    { id: "ravenshome", name: "Raven's Home", poster: "images/RAVENS_HOME_POSTER.jpg" },
-    { id: "zoey101", name: "Zoey 101", poster: "images/ZOEY_101_POSTER.jpg" },
-    { id: "melissajoey", name: "Melissa & Joey", poster: "images/MELISSA_AND_JOEY_POSTER.jpg" },
-    { id: "victorious", name: "Victorious", poster: "images/VICTORIOUS_POSTER.jpg" },
-    { id: "goodluckcharlie", name: "Good Luck Charlie", poster: "images/GOOD_LUCK_CHARLIE_POSTER.jpg" },
-    { id: "kcundercover", name: "K.C. Undercover", poster: "images/KC_UNDERCOVER_POSTER.jpg" },
-    { id: "wizards", name: "Wizards of Waverly Place", poster: "images/WIZARDS_OF_WAVERLY_PLACE_POSTER.jpg" },
-    { id: "icarly", name: "iCarly", poster: "images/ICARLY_POSTER.jpg" },
-    { id: "familyguy", name: "Family Guy", poster: "images/FAMILY_GUY_POSTER.jpg" },
-    { id: "youngsheldon", name: "Young Sheldon", poster: "images/YOUNG_SHELDON_POSTER.jpg" },
-    { id: "bigbang", name: "The Big Bang Theory", poster: "images/BIG_BANG_THEORY_POSTER.jpg" },
-    { id: "theneighbourhood", name: "The Neighbourhood", poster: "images/THE_NEIGHBOURHOOD_POSTER.jpg" }
+    { id: "friends", name: "Friends", poster: "FRIENDS_POSTER.jpg" },
+    { id: "simpsons", name: "The Simpsons", poster: "THE_SIMPSONS_POSTER.jpg" },
+    { id: "samcat", name: "Sam & Cat", poster: "SAM_AND_CAT_POSTER.jpg" },
+    { id: "twobrokegirls", name: "2 Broke Girls", poster: "TWO_BROKE_GIRLS_POSTER.jpg" },
+    { id: "georgiemandy", name: "Georgie & Mandy", poster: "GEORGIE_AND_MANDY_POSTER.jpg" },
+    { id: "suitelifeondeck", name: "The Suite Life on Deck", poster: "SUITE_LIFE_ON_DECK_POSTER.jpg" },
+    { id: "drakejosh", name: "Drake & Josh", poster: "DRAKE_AND_JOSH_POSTER.jpg" },
+    { id: "shakeitup", name: "Shake It Up", poster: "SHAKE_IT_UP_POSTER.jpg" },
+    { id: "ravenshome", name: "Raven's Home", poster: "RAVENS_HOME_POSTER.jpg" },
+    { id: "zoey101", name: "Zoey 101", poster: "ZOEY_101_POSTER.jpg" },
+    { id: "melissajoey", name: "Melissa & Joey", poster: "MELISSA_AND_JOEY_POSTER.jpg" },
+    { id: "victorious", name: "Victorious", poster: "VICTORIOUS_POSTER.jpg" },
+    { id: "goodluckcharlie", name: "Good Luck Charlie", poster: "GOOD_LUCK_CHARLIE_POSTER.jpg" },
+    { id: "kcundercover", name: "K.C. Undercover", poster: "KC_UNDERCOVER_POSTER.jpg" },
+    { id: "wizards", name: "Wizards of Waverly Place", poster: "WIZARDS_OF_WAVERLY_PLACE_POSTER.jpg" },
+    { id: "icarly", name: "iCarly", poster: "ICARLY_POSTER.jpg" },
+    { id: "familyguy", name: "Family Guy", poster: "FAMILY_GUY_POSTER.jpg" },
+    { id: "youngsheldon", name: "Young Sheldon", poster: "YOUNG_SHELDON_POSTER.jpg" },
+    { id: "bigbang", name: "The Big Bang Theory", poster: "BIG_BANG_THEORY_POSTER.jpg" },
+    { id: "theneighbourhood", name: "The Neighbourhood", poster: "THE_NEIGHBOURHOOD_POSTER.jpg" }
 ];
 
-/* ⭐ CUSTOM PAGE FOR THE NEIGHBOURHOOD ⭐ */
-function openSitcomShow_theneighbourhood() {
+/* ⭐ NEIGHBOURHOOD FOLDER ⭐ */
+function openNeighbourhoodFolder() {
     currentFolder = "series";
-    currentGenre = "theneighbourhood-season1";
+    currentGenre = "theneighbourhood";
 
     page.innerHTML = `
         <div class="back" onclick="openSitcomFolder()">← Back</div>
         <h2>The Neighbourhood</h2>
 
-        <h3>Season 1</h3>
+        <div class="row">
+            <div class="tile" onclick="openNeighbourhoodSeason1()">
+                <img src="THE_NEIGHBOURHOOD_POSTER.jpg"
+                     style="width:100%; height:100%; object-fit:cover;">
+                <div style="
+                    position:absolute;
+                    bottom:0;
+                    width:100%;
+                    background:rgba(0,0,0,0.6);
+                    color:white;
+                    text-align:center;
+                    padding:6px 0;
+                    font-weight:600;
+                ">Season 1</div>
+            </div>
+        </div>
+    `;
+}
+
+/* ⭐ NEIGHBOURHOOD — SEASON 1 ⭐ */
+function openNeighbourhoodSeason1() {
+    currentFolder = "series";
+    currentGenre = "theneighbourhood-season1";
+
+    page.innerHTML = `
+        <div class="back" onclick="openNeighbourhoodFolder()">← Back</div>
+        <h2>The Neighbourhood — Season 1</h2>
+
         <div class="row" id="row-series-theneighbourhood-season1">
             <div class="tile add-tile" onclick="triggerUpload()">
                 <div class="add-icon">+</div>
@@ -287,13 +294,11 @@ function openSitcomShow_theneighbourhood() {
 /* ⭐ SITCOM FOLDER ⭐ */
 function openSitcomFolder() {
     currentFolder = "series";
-
     page.innerHTML = `
         <div class="back" onclick="openSeries()">← Back</div>
         <h2>Sitcom</h2>
         <div class="row" id="sitcom-row"></div>
     `;
-
     const row = document.getElementById("sitcom-row");
 
     sitcomShows.forEach(show => {
@@ -301,17 +306,13 @@ function openSitcomFolder() {
         tile.className = "tile";
 
         tile.onclick = () => {
-            if (show.id === "theneighbourhood") {
-                openSitcomShow_theneighbourhood();
-            } else {
-                openSitcomShow(show.id);
-            }
+            if (show.id === "theneighbourhood") openNeighbourhoodFolder();
+            else openSitcomShow(show.id);
         };
 
         tile.innerHTML = `
             <img src="${show.poster}" style="width:100%; height:100%; object-fit:cover;">
         `;
-
         row.appendChild(tile);
     });
 }
@@ -343,7 +344,6 @@ function openSitcomShow(id) {
 /* GENRE PAGE */
 function openGenre(name) {
     currentGenre = name;
-
     page.innerHTML = `
         <div class="back" onclick="${currentFolder === 'movies' ? 'openMovies()' : 'openSeries()'}">← Back</div>
         <h2>${name}</h2>
