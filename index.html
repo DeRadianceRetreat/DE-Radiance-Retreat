@@ -242,31 +242,49 @@ function openSeries() {
     });
 }
 
-/* ⭐ UPDATED SITCOM ARRAY WITH CORRECT IMAGE PATHS ⭐ */
+/* ⭐ UPDATED SITCOM ARRAY ⭐ */
 const sitcomShows = [
-    { id: "friends",          name: "Friends",                poster: "images/FRIENDS_POSTER.jpg" },
-    { id: "simpsons",         name: "The Simpsons",           poster: "images/THE_SIMPSONS_POSTER.jpg" },
-    { id: "samcat",           name: "Sam & Cat",              poster: "images/SAM_AND_CAT_POSTER.jpg" },
-    { id: "twobrokegirls",    name: "2 Broke Girls",          poster: "images/TWO_BROKE_GIRLS_POSTER.jpg" },
-    { id: "georgiemandy",     name: "Georgie & Mandy",        poster: "images/GEORGIE_AND_MANDY_POSTER.jpg" },
-    { id: "suitelifeondeck",  name: "The Suite Life on Deck", poster: "images/SUITE_LIFE_ON_DECK_POSTER.jpg" },
-    { id: "drakejosh",        name: "Drake & Josh",           poster: "images/DRAKE_AND_JOSH_POSTER.jpg" },
-    { id: "shakeitup",        name: "Shake It Up",            poster: "images/SHAKE_IT_UP_POSTER.jpg" },
-    { id: "ravenshome",       name: "Raven's Home",           poster: "images/RAVENS_HOME_POSTER.jpg" },
-    { id: "zoey101",          name: "Zoey 101",               poster: "images/ZOEY_101_POSTER.jpg" },
-    { id: "melissajoey",      name: "Melissa & Joey",         poster: "images/MELISSA_AND_JOEY_POSTER.jpg" },
-    { id: "victorious",       name: "Victorious",             poster: "images/VICTORIOUS_POSTER.jpg" },
-    { id: "goodluckcharlie",  name: "Good Luck Charlie",      poster: "images/GOOD_LUCK_CHARLIE_POSTER.jpg" },
-    { id: "kcundercover",     name: "K.C. Undercover",        poster: "images/KC_UNDERCOVER_POSTER.jpg" },
-    { id: "wizards",          name: "Wizards of Waverly Place", poster: "images/WIZARDS_OF_WAVERLY_PLACE_POSTER.jpg" },
-    { id: "icarly",           name: "iCarly",                 poster: "images/ICARLY_POSTER.jpg" },
-    { id: "familyguy",        name: "Family Guy",             poster: "images/FAMILY_GUY_POSTER.jpg" },
-    { id: "youngsheldon",     name: "Young Sheldon",          poster: "images/YOUNG_SHELDON_POSTER.jpg" },
-    { id: "bigbang",          name: "The Big Bang Theory",    poster: "images/BIG_BANG_THEORY_POSTER.jpg" },
-    { id: "theneighbourhood", name: "The Neighbourhood",      poster: "images/THE_NEIGHBOURHOOD_POSTER.jpg" }
+    { id: "friends", name: "Friends", poster: "images/FRIENDS_POSTER.jpg" },
+    { id: "simpsons", name: "The Simpsons", poster: "images/THE_SIMPSONS_POSTER.jpg" },
+    { id: "samcat", name: "Sam & Cat", poster: "images/SAM_AND_CAT_POSTER.jpg" },
+    { id: "twobrokegirls", name: "2 Broke Girls", poster: "images/TWO_BROKE_GIRLS_POSTER.jpg" },
+    { id: "georgiemandy", name: "Georgie & Mandy", poster: "images/GEORGIE_AND_MANDY_POSTER.jpg" },
+    { id: "suitelifeondeck", name: "The Suite Life on Deck", poster: "images/SUITE_LIFE_ON_DECK_POSTER.jpg" },
+    { id: "drakejosh", name: "Drake & Josh", poster: "images/DRAKE_AND_JOSH_POSTER.jpg" },
+    { id: "shakeitup", name: "Shake It Up", poster: "images/SHAKE_IT_UP_POSTER.jpg" },
+    { id: "ravenshome", name: "Raven's Home", poster: "images/RAVENS_HOME_POSTER.jpg" },
+    { id: "zoey101", name: "Zoey 101", poster: "images/ZOEY_101_POSTER.jpg" },
+    { id: "melissajoey", name: "Melissa & Joey", poster: "images/MELISSA_AND_JOEY_POSTER.jpg" },
+    { id: "victorious", name: "Victorious", poster: "images/VICTORIOUS_POSTER.jpg" },
+    { id: "goodluckcharlie", name: "Good Luck Charlie", poster: "images/GOOD_LUCK_CHARLIE_POSTER.jpg" },
+    { id: "kcundercover", name: "K.C. Undercover", poster: "images/KC_UNDERCOVER_POSTER.jpg" },
+    { id: "wizards", name: "Wizards of Waverly Place", poster: "images/WIZARDS_OF_WAVERLY_PLACE_POSTER.jpg" },
+    { id: "icarly", name: "iCarly", poster: "images/ICARLY_POSTER.jpg" },
+    { id: "familyguy", name: "Family Guy", poster: "images/FAMILY_GUY_POSTER.jpg" },
+    { id: "youngsheldon", name: "Young Sheldon", poster: "images/YOUNG_SHELDON_POSTER.jpg" },
+    { id: "bigbang", name: "The Big Bang Theory", poster: "images/BIG_BANG_THEORY_POSTER.jpg" },
+    { id: "theneighbourhood", name: "The Neighbourhood", poster: "images/THE_NEIGHBOURHOOD_POSTER.jpg" }
 ];
 
-/* ⭐ SITCOM FOLDER — AUTO GENERATES ALL CARDS ⭐ */
+/* ⭐ CUSTOM PAGE FOR THE NEIGHBOURHOOD ⭐ */
+function openSitcomShow_theneighbourhood() {
+    currentFolder = "series";
+    currentGenre = "theneighbourhood-season1";
+
+    page.innerHTML = `
+        <div class="back" onclick="openSitcomFolder()">← Back</div>
+        <h2>The Neighbourhood</h2>
+
+        <h3>Season 1</h3>
+        <div class="row" id="row-series-theneighbourhood-season1">
+            <div class="tile add-tile" onclick="triggerUpload()">
+                <div class="add-icon">+</div>
+            </div>
+        </div>
+    `;
+}
+
+/* ⭐ SITCOM FOLDER ⭐ */
 function openSitcomFolder() {
     currentFolder = "series";
 
@@ -281,7 +299,14 @@ function openSitcomFolder() {
     sitcomShows.forEach(show => {
         const tile = document.createElement("div");
         tile.className = "tile";
-        tile.onclick = () => openSitcomShow(show.id);
+
+        tile.onclick = () => {
+            if (show.id === "theneighbourhood") {
+                openSitcomShow_theneighbourhood();
+            } else {
+                openSitcomShow(show.id);
+            }
+        };
 
         tile.innerHTML = `
             <img src="${show.poster}" style="width:100%; height:100%; object-fit:cover;">
@@ -291,7 +316,7 @@ function openSitcomFolder() {
     });
 }
 
-/* ⭐ AUTO PAGE FOR EACH SHOW ⭐ */
+/* ⭐ GENERIC SHOW PAGE ⭐ */
 function openSitcomShow(id) {
     const show = sitcomShows.find(s => s.id === id);
     if (!show) return;
